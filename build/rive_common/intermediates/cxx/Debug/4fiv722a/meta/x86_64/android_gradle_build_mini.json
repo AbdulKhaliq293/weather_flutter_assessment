@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "/home/adminak/.pub-cache/hosted/pub.dev/rive_common-0.2.7/android/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/adminak/Android/Sdk/cmake/3.18.1/bin/ninja",
+      "-C",
+      "/home/adminak/.pub-cache/hosted/pub.dev/rive_common-0.2.7/android/.cxx/Debug/4fiv722a/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/adminak/Android/Sdk/cmake/3.18.1/bin/ninja",
+    "-C",
+    "/home/adminak/.pub-cache/hosted/pub.dev/rive_common-0.2.7/android/.cxx/Debug/4fiv722a/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "rive_text::@6890427a1f51a3e7e1df": {
+      "artifactName": "rive_text",
+      "abi": "x86_64",
+      "output": "/home/adminak/flutter_projects/weather_app/build/rive_common/intermediates/cxx/Debug/4fiv722a/obj/x86_64/librive_text.so",
+      "runtimeFiles": []
+    }
+  }
+}
