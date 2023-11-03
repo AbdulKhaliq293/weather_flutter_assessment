@@ -38,8 +38,6 @@ class _CityScrollState extends State<CityScroll> {
 
     final weatherBloc = BlocProvider.of<WeatherBloc>(context);
 
-  
-
     weatherBloc.add(FetchWeatherEvent(
         latitude: widget.city.latitude, longitude: widget.city.longitude));
   }
@@ -54,20 +52,20 @@ class _CityScrollState extends State<CityScroll> {
     // final textSize = screenHeight * 0.03;
     final double paddingHeightSize = screenHeight * 0.04;
     final searchBloc = BlocProvider.of<SearchBloc>(context);
-  final List<SearchDataModel> cities = searchBloc.addedCities;
+    final List<SearchDataModel> cities = searchBloc.addedCities;
     return BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
       if (state is WeatherLoadingState) {
-        return Scaffold(body: Stack(
+        return Scaffold(
+            body: Stack(
           children: [
             Container(
-                width: double.infinity,
-                height: double.infinity,
-                child: RiveAnimation.asset(
-                  'assets/sunny_day.riv',
-                  fit: BoxFit.fill,
-                ),
+              width: double.infinity,
+              height: double.infinity,
+              child: RiveAnimation.asset(
+                'assets/sunny_day.riv',
+                fit: BoxFit.fill,
               ),
-
+            ),
             Center(child: CircularProgressIndicator()),
           ],
         ));
@@ -123,7 +121,14 @@ class _CityScrollState extends State<CityScroll> {
                                 fontWeight: FontWeight.normal),
                           ),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                final weatherBloc =
+                                    BlocProvider.of<WeatherBloc>(context);
+
+                                weatherBloc.add(FetchWeatherEvent(
+                                    latitude: widget.city.latitude,
+                                    longitude: widget.city.longitude));
+                              },
                               icon: Icon(
                                 Icons.refresh,
                                 color: Colors.white,

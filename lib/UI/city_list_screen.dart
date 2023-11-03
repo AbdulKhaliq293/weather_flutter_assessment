@@ -10,16 +10,16 @@ class CityListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Added Cities'),
+        title: Text('Manage Cities'),
         actions: [
-          IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              // Navigate to the search screen when the search button is tapped
-              Navigator.pop(context, '/home');
+          // IconButton(
+          //   icon: Icon(Icons.arrow_back),
+          //   onPressed: () {
+          //     // Navigate to the search screen when the search button is tapped
+          //     Navigator.pop(context, '/home');
               
-            },
-          ),
+          //   },
+          // ),
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
@@ -36,6 +36,7 @@ class CityListScreen extends StatelessWidget {
 
           if (state is CityAddedState) {
             final addedCities = context.read<SearchBloc>().addedCities;
+            print("City Displayed");
             
 
             return ListView.builder(
@@ -47,6 +48,7 @@ class CityListScreen extends StatelessWidget {
             );
           } else if (state is CityRemovedState) {
             final removedCities = context.read<SearchBloc>().addedCities;
+            print("City Displayed");
 
             return ListView.builder(
               itemCount: removedCities.length,
@@ -83,6 +85,8 @@ class CityCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      semanticContainer: true,
+      surfaceTintColor: Colors.black38,
       margin: EdgeInsets.all(8),
       child: ListTile(
         title: Text(city.name),
@@ -90,7 +94,7 @@ class CityCard extends StatelessWidget {
         trailing: IconButton(
           icon: Icon(Icons.delete),
           onPressed: () {
-            // Handle the delete action by dispatching an event to the bloc
+          
             context.read<SearchBloc>().add(RemoveCityEvent(city: city));
           },
         ),

@@ -34,7 +34,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       print('Success');
     } catch (e) {
       // Handle errors here and emit an error state if needed
-      print("error:" + e.toString());
+      emit(SearchFailedState(message: e.toString()));
     }
   }
   Future<void> addCityEvent(AddCityEvent event, Emitter<SearchState> emit) async {

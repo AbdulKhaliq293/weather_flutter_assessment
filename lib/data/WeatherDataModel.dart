@@ -17,7 +17,7 @@ class WeatherDataModel {
   final Map<String, dynamic> current;
   final Map<String, dynamic> hourly;
   final Map<String, dynamic> daily;
-  WeatherCondition condition; // Add weather condition
+  WeatherCondition condition; 
 
   WeatherDataModel({
     required this.latitude,
@@ -25,11 +25,11 @@ class WeatherDataModel {
     required this.current,
     required this.hourly,
     required this.daily,
-    required this.condition, // Include weather condition
+    required this.condition, 
   });
 
   factory WeatherDataModel.fromJson(Map<String, dynamic> json) {
-    // You can calculate the weather condition based on your logic
+  
     WeatherCondition condition = calculateCondition(json['current']);
     
     return WeatherDataModel(
@@ -104,7 +104,7 @@ List<HourlyForecastModel> generateHourlyForecast() {
     for (int i = 0; i < timeData.length; i++) {
       final DateTime time = DateTime.parse(timeData[i]);
       final double temperature = (temperatureData[i] as num).toDouble();
-      final double windSpeed = (windSpeedData[i] as num).toDouble();
+      final double windSpeed = (windSpeedData[i] as num)!.toDouble();
 
       hourlyForecasts.add(HourlyForecastModel(
         time: time,

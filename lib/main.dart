@@ -1,44 +1,44 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:weather_app/UI/city_list_screen.dart';
 import 'package:weather_app/UI/city_slider.dart';
+import 'package:weather_app/UI/fall_back_screen.dart';
 import 'package:weather_app/UI/home_page.dart';
 import 'package:weather_app/UI/search_screen.dart';
 import 'package:weather_app/addedCitiesMAnager.dart';
 import 'package:weather_app/bloc/search_bloc/search_bloc.dart';
 import 'package:weather_app/bloc/weather_blocs/weather_bloc.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  
+void main() async{
+WidgetsFlutterBinding.ensureInitialized();
 
-  // Load addedCities from shared preferences
-  await AddedCitiesManager.instance.loadAddedCities();
+ 
+   await AddedCitiesManager.instance.loadAddedCities();
 
   runApp(const MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-      
-    return MultiBlocProvider(
-      
-      providers: [
-            BlocProvider(create: (context) => SearchBloc()),
-    BlocProvider(create: (context) => WeatherBloc()),
+    // Navigate to the initial route after runApp
 
-          ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => SearchBloc()),
+        BlocProvider(create: (context) => WeatherBloc()),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme: ColorScheme.light(
+          colorScheme: const ColorScheme.light(
             primary: Colors.blue, // Change primary color (e.g., sky blue)
             secondary:
                 Colors.orange, // Change secondary color (e.g., sun-like color)
@@ -58,14 +58,18 @@ class MyApp extends StatelessWidget {
           cardColor: Colors.black54,
           useMaterial3: true, // You can set this to true if using Material 3
         ),
-        
-        home:  HomePage(),
+        home: HomePage(),
         initialRoute: '/home',
         routes: {
-          '/home':(context) => HomePage(),
-      '/search': (context) => SearchScreen(), 
-      '/addCity': (context) => CityListScreen(), // Add SearchScreen route
-    },
+          '/home': (context) => const HomePage(),
+          '/search': (context) => const SearchScreen(),
+          '/addCity': (context) => CityListScreen(), // Add SearchScreen route
+        },
+        onUnknownRoute: (settings) {
+          // Exit the app
+          exit(0);
+          
+        },
       ),
     );
   }

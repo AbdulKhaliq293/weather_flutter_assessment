@@ -13,7 +13,10 @@ class SearchSuccesfullState extends SearchState {
 
   SearchSuccesfullState({required this.searchdata});
 }
-
+class SearchFailedState extends SearchState {
+  late final String message;
+  SearchFailedState({required this.message});
+}
 class CityAddedState extends SearchState {
   final List<SearchDataModel> city;
 
