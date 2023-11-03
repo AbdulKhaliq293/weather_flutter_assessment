@@ -57,7 +57,20 @@ class _CityScrollState extends State<CityScroll> {
   final List<SearchDataModel> cities = searchBloc.addedCities;
     return BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
       if (state is WeatherLoadingState) {
-        return Scaffold(body: Center(child: CircularProgressIndicator()));
+        return Scaffold(body: Stack(
+          children: [
+            Container(
+                width: double.infinity,
+                height: double.infinity,
+                child: RiveAnimation.asset(
+                  'assets/sunny_day.riv',
+                  fit: BoxFit.fill,
+                ),
+              ),
+
+            Center(child: CircularProgressIndicator()),
+          ],
+        ));
       } else if (state is WeatherDataState && state != null) {
         final cityName = widget.city.name;
         final currentData = state.data.current;
@@ -175,7 +188,7 @@ class _CityScrollState extends State<CityScroll> {
                         Text(
                           " /",
                           style: GoogleFonts.montserrat(
-                            fontSize: 18,
+                            fontSize: 12,
                             color: Colors.white70,
                           ),
                         ),
