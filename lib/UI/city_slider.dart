@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_app/addedCitiesMAnager.dart';
+import 'package:weather_app/bloc/search_bloc/search_bloc.dart';
 import 'package:weather_app/bloc/weather_blocs/weather_bloc.dart';
 import 'package:weather_app/data/SearchDataModel.dart';
 import 'package:weather_app/data/WeatherDataModel.dart';
@@ -37,6 +38,8 @@ class _CityScrollState extends State<CityScroll> {
 
     final weatherBloc = BlocProvider.of<WeatherBloc>(context);
 
+  
+
     weatherBloc.add(FetchWeatherEvent(
         latitude: widget.city.latitude, longitude: widget.city.longitude));
   }
@@ -50,6 +53,8 @@ class _CityScrollState extends State<CityScroll> {
     final iconSize = screenWidth * 0.08;
     // final textSize = screenHeight * 0.03;
     final double paddingHeightSize = screenHeight * 0.04;
+    final searchBloc = BlocProvider.of<SearchBloc>(context);
+  final List<SearchDataModel> cities = searchBloc.addedCities;
     return BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
       if (state is WeatherLoadingState) {
         return Scaffold(body: Center(child: CircularProgressIndicator()));
@@ -116,7 +121,7 @@ class _CityScrollState extends State<CityScroll> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
-                        totalcities.length,
+                        cities.length,
                         (index) => Dot(
                           isActive: index == widget.currentPageIndex,
                         ),
@@ -161,21 +166,21 @@ class _CityScrollState extends State<CityScroll> {
                           width: 10,
                         ),
                         Text(
-                          maxTemperature.toInt().toString(),
+                          "${maxTemperature.toInt().toString()}°C",
                           style: GoogleFonts.montserrat(
                             fontSize: 22,
                             color: Colors.white,
                           ),
                         ),
                         Text(
-                          "/",
+                          " /",
                           style: GoogleFonts.montserrat(
-                            fontSize: 22,
-                            color: Colors.white,
+                            fontSize: 18,
+                            color: Colors.white70,
                           ),
                         ),
                         Text(
-                          minTemperature.toInt().toString(),
+                          "${minTemperature.toInt().toString()}°C",
                           style: GoogleFonts.montserrat(
                             fontSize: 22,
                             color: Colors.white,

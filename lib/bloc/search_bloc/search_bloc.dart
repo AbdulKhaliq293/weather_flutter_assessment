@@ -45,7 +45,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
       print('City added successfully');
       
-      emit(CityAddedState(city: event.city)); // Emit a new state to notify the UI
+      emit(CityAddedState(city: addedCities)); // Emit a new state to notify the UI
     } catch (e) {
       // Handle errors here and emit an error state if needed
       print("error:" + e.toString());
@@ -74,7 +74,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       // Save the updated list to shared preferences
       _saveAddedCities();
 
-      emit(CityRemovedState(city: event.city)); // Emit a new state to notify the UI
+      emit(CityRemovedState(city: addedCities)); // Emit a new state to notify the UI
     } catch (e) {
       // Handle errors here and emit an error state if needed
       print("error:" + e.toString());

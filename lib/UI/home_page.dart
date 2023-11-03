@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/UI/city_list_screen.dart';
@@ -34,16 +36,41 @@ final totalCities = AddedCitiesManager.instance.addedCities;
    
     if (totalCities.length != null && totalCities.length > 0) {
       print("the number of cities saved${addedCities.length}");
+
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
+        if(state is CityAddedState) {
         return PageView.builder(
   controller: pageController,
-  itemCount: addedCities.length,
+  itemCount: state.city.length,
   itemBuilder: (context, index) {
-    return CityScroll(city: addedCities[index], currentPageIndex: index,);
+    return CityScroll(city: state.city[index], currentPageIndex: index,);
   },
-);;
-      },
+);
+      } else if(state is CityRemovedState) {
+        return PageView.builder(
+  controller: pageController,
+  itemCount: state.city.length,
+  itemBuilder: (context, index) {
+    return CityScroll(city: state.city[index], currentPageIndex: index,);
+  },
+);
+      }
+      else{
+return PageView.builder(
+  controller: pageController,
+  itemCount: totalCities.length,
+  itemBuilder: (context, index) {
+    return CityScroll(city: totalCities[index], currentPageIndex: index,);
+  },
+);
+      }
+
+      }
+      
+      
+      
+      
     );}
 else{ print("Navigating to CityListScreen");
 

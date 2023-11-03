@@ -20,28 +20,33 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   }
 
   void _fetchWeatherData(FetchWeatherEvent event, Emitter<WeatherState> emit) async {
-    try {
-      if (cachedData != null && lastFetchTime != null) {
-  final newDateTime = lastFetchTime!.add(Duration(minutes: maxDataAgeInMinutes));
-  if (DateTime.now().isBefore(newDateTime)) {
-    // Cached data is still valid, emit it
-    emit(WeatherDataState(data: cachedData!));
-  }
-}else {
-        emit(WeatherLoadingState());
-
-        final data = await WeatherRepo.fetchWeatherData(event.latitude, event.longitude);
-        print(data.current.keys);
-        print(data.hourly.keys);
-
-        // Update the cache and last fetch time
-        cachedData = data;
-        lastFetchTime = DateTime.now();
-
-        emit(WeatherDataState(data: data));
+  try {
+    if (cachedData != null && lastFetchTime != null) {
+      final newDateTime = lastFetchTime!.add(Duration(minutes: maxDataAgeInMinutes));
+      
+      // Check if cached data is still valid and coordinates match
+      if (DateTime.now().isBefore(newDateTime) &&
+          (cachedData?.latitude == event.latitude) &&
+          (cachedData?.longitude == event.longitude)) {
+        // Cached data is still valid and coordinates match, emit it
+        emit(WeatherDataState(data: cachedData!));
+        return; // Exit the function here; no need to proceed further
       }
-    } catch (e) {
-      emit(WeatherErrorState(error: e.toString()));
     }
+
+    emit(WeatherLoadingState());
+
+    final data = await WeatherRepo.fetchWeatherData(event.latitude, event.longitude);
+    print(data.current.keys);
+    print(data.hourly.keys);
+
+    // Update the cache and last fetch time
+    cachedData = data;
+    lastFetchTime = DateTime.now();
+
+    emit(WeatherDataState(data: data));
+  } catch (e) {
+    emit(WeatherErrorState(error: e.toString()));
   }
+}
 }

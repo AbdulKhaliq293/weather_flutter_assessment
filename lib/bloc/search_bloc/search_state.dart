@@ -15,13 +15,13 @@ class SearchSuccesfullState extends SearchState {
 }
 
 class CityAddedState extends SearchState {
-  final SearchDataModel city;
+  final List<SearchDataModel> city;
 
   CityAddedState({required this.city});
 }
 
 class CityRemovedState extends SearchState {
-  final SearchDataModel city;
+  final List<SearchDataModel> city;
 
   CityRemovedState({required this.city});
 }
