@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
             );
           },
         );
-      } else if(totalCities.isNotEmpty){
+      } else if(totalCities.length>=0 && totalCities.length!=0){
         return PageView.builder(
           controller: pageController,
           itemCount: totalCities.length,
