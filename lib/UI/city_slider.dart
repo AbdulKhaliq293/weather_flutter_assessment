@@ -62,7 +62,7 @@ class _CityScrollState extends State<CityScroll> {
               width: double.infinity,
               height: double.infinity,
               child: RiveAnimation.asset(
-                'assets/sunny_day.riv',
+                'assets/Dynamic_sunny.riv',
                 fit: BoxFit.fill,
               ),
             ),
@@ -77,11 +77,11 @@ class _CityScrollState extends State<CityScroll> {
         final weatherCondition = state.data.condition;
         List<dynamic> dailyMaxTemperatures = dailyData['temperature_2m_max'];
         num maxTemperature = dailyMaxTemperatures
-            .map((value) => (value as num).toDouble()) // Convert values to num
+            .map((value) => (value as num).toDouble()) 
             .reduce((value, element) => value > element ? value : element);
         List<dynamic> dailyMinTemperatures = dailyData['temperature_2m_min'];
         num minTemperature = dailyMinTemperatures
-            .map((value) => (value as num).toDouble()) // Convert values to num
+            .map((value) => (value as num).toDouble()) 
             .reduce((value, element) => value < element ? value : element);
         return Scaffold(
           body: Stack(
@@ -89,9 +89,12 @@ class _CityScrollState extends State<CityScroll> {
               Container(
                 width: double.infinity,
                 height: double.infinity,
-                child: RiveAnimation.asset(
-                  'assets/sunny_day.riv',
+                child: const RiveAnimation.asset(
+                  'assets/Dynamic_sunny.riv',
                   fit: BoxFit.fill,
+                  animations: ['cloudsDefault'],
+
+                
                 ),
               ), // Make sure the animation file exists
               SingleChildScrollView(

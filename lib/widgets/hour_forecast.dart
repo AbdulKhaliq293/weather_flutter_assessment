@@ -90,7 +90,7 @@ class HourForecast extends StatelessWidget {
                     minimum: getCurrentTimeInHours().toDouble(),
                    
                     visibleMinimum: 1,
-                    visibleMaximum: 6,
+                    visibleMaximum: 4,
                     maximum: 24,
                     
                     zoomFactor: 1,
